@@ -154,7 +154,6 @@ public class MqttException extends Exception {
 	public static final short REASON_CODE_MAX_INFLIGHT    			= 32202;
 
 	private int reasonCode;
-	private Throwable cause;
 	
 	/**
 	 * Constructs a new <code>MqttException</code> with the specified code
@@ -172,9 +171,7 @@ public class MqttException extends Exception {
 	 * @param cause the underlying cause of the exception.
 	 */
 	public MqttException(Throwable cause) {
-		super();
-		this.reasonCode = REASON_CODE_CLIENT_EXCEPTION;
-		this.cause = cause;
+		this(REASON_CODE_CLIENT_EXCEPTION, cause);
 	}
 
 	/**
@@ -184,9 +181,8 @@ public class MqttException extends Exception {
 	 * @param cause the underlying cause of the exception.
 	 */
 	public MqttException(int reason, Throwable cause) {
-		super();
+		super(cause);
 		this.reasonCode = reason;
-		this.cause = cause;
 	}
 
 	
@@ -196,15 +192,6 @@ public class MqttException extends Exception {
 	 */
 	public int getReasonCode() {
 		return reasonCode;
-	}
-	
-	/**
-	 * Returns the underlying cause of this exception, if available.
-	 * @return the Throwable that was the root cause of this exception,
-	 * which may be <code>null</code>.
-	 */
-	public Throwable getCause() {
-		return cause;
 	}
 	
 	/**
@@ -221,6 +208,8 @@ public class MqttException extends Exception {
 	 */
 	public String toString() {
 		String result = getMessage() + " (" + reasonCode + ")";
+		Throwable cause = getCause();
+		
 		if (cause != null) {
 			result = result + " - " + cause.toString();
 		}
