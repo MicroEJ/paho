@@ -12,6 +12,9 @@
  *
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3;
 
@@ -25,7 +28,7 @@ import org.eclipse.paho.client.mqttv3.util.Strings;
  * Represents a topic destination, used for publish/subscribe messaging.
  */
 public class MqttTopic {
-	
+
 	/**
 	 * The forward slash (/) is used to separate each level within a topic tree
 	 * and provide a hierarchical structure to the topic space. The use of the
@@ -45,70 +48,80 @@ public class MqttTopic {
 	 * matches only one topic level.
 	 */
 	public static final String SINGLE_LEVEL_WILDCARD = "+";
-	
+
 	/**
 	 * Multi-level wildcard pattern(/#)
 	 */
-	public static final String MULTI_LEVEL_WILDCARD_PATTERN = TOPIC_LEVEL_SEPARATOR + MULTI_LEVEL_WILDCARD;
+	public static final String MULTI_LEVEL_WILDCARD_PATTERN = TOPIC_LEVEL_SEPARATOR
+			+ MULTI_LEVEL_WILDCARD;
 
 	/**
 	 * Topic wildcards (#+)
 	 */
-	public static final String TOPIC_WILDCARDS = MULTI_LEVEL_WILDCARD + SINGLE_LEVEL_WILDCARD;
-	
-	//topic name and topic filter length range defined in the spec
+	public static final String TOPIC_WILDCARDS = MULTI_LEVEL_WILDCARD
+			+ SINGLE_LEVEL_WILDCARD;
+
+	// topic name and topic filter length range defined in the spec
 	private static final int MIN_TOPIC_LEN = 1;
 	private static final int MAX_TOPIC_LEN = 65535;
 	private static final char NUL = '\u0000';
-	
+
 	private ClientComms comms;
 	private String name;
-	
+
 	public MqttTopic(String name, ClientComms comms) {
 		this.comms = comms;
 		this.name = name;
 	}
-	
-	/**
-	 * Publishes a message on the topic.  This is a convenience method, which will 
-	 * create a new {@link MqttMessage} object with a byte array payload and the
-	 * specified QoS, and then publish it.  All other values in the
-	 * message will be set to the defaults. 
 
-	 * @param payload the byte array to use as the payload
-	 * @param qos the Quality of Service.  Valid values are 0, 1 or 2.
-	 * @param retained whether or not this message should be retained by the server.
-	 * @throws IllegalArgumentException if value of QoS is not 0, 1 or 2.
+	/**
+	 * Publishes a message on the topic. This is a convenience method, which
+	 * will create a new {@link MqttMessage} object with a byte array payload
+	 * and the specified QoS, and then publish it. All other values in the
+	 * message will be set to the defaults.
+	 * 
+	 * @param payload
+	 *            the byte array to use as the payload
+	 * @param qos
+	 *            the Quality of Service. Valid values are 0, 1 or 2.
+	 * @param retained
+	 *            whether or not this message should be retained by the server.
+	 * @throws IllegalArgumentException
+	 *             if value of QoS is not 0, 1 or 2.
 	 * @see #publish(MqttMessage)
 	 * @see MqttMessage#setQos(int)
 	 * @see MqttMessage#setRetained(boolean)
 	 */
-	public MqttDeliveryToken publish(byte[] payload, int qos, boolean retained) throws MqttException, MqttPersistenceException {
+	public MqttDeliveryToken publish(byte[] payload, int qos, boolean retained)
+			throws MqttException, MqttPersistenceException {
 		MqttMessage message = new MqttMessage(payload);
 		message.setQos(qos);
 		message.setRetained(retained);
 		return this.publish(message);
 	}
-	
+
 	/**
-	 * Publishes the specified message to this topic, but does not wait for delivery 
-	 * of the message to complete. The returned {@link MqttDeliveryToken token} can be used
-	 * to track the delivery status of the message.  Once this method has 
-	 * returned cleanly, the message has been accepted for publication by the
-	 * client. Message delivery will be completed in the background when a connection 
-	 * is available.
+	 * Publishes the specified message to this topic, but does not wait for
+	 * delivery of the message to complete. The returned
+	 * {@link MqttDeliveryToken token} can be used to track the delivery status
+	 * of the message. Once this method has returned cleanly, the message has
+	 * been accepted for publication by the client. Message delivery will be
+	 * completed in the background when a connection is available.
 	 * 
-	 * @param message the message to publish
+	 * @param message
+	 *            the message to publish
 	 * @return an MqttDeliveryToken for tracking the delivery of the message
 	 */
-	public MqttDeliveryToken publish(MqttMessage message) throws MqttException, MqttPersistenceException {
-		MqttDeliveryToken token = new MqttDeliveryToken(comms.getClient().getClientId());
+	public MqttDeliveryToken publish(MqttMessage message) throws MqttException,
+			MqttPersistenceException {
+		MqttDeliveryToken token = new MqttDeliveryToken(comms.getClient()
+				.getClientId());
 		token.setMessage(message);
 		comms.sendNoWait(createPublish(message), token);
 		token.internalTok.waitUntilSent();
 		return token;
 	}
-	
+
 	/**
 	 * Returns the name of the queue or topic.
 	 * 
@@ -117,28 +130,32 @@ public class MqttTopic {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * Create a PUBLISH packet from the specified message.
 	 */
 	private MqttPublish createPublish(MqttMessage message) {
 		return new MqttPublish(this.getName(), message);
 	}
-	
+
 	/**
 	 * Returns a string representation of this topic.
+	 * 
 	 * @return a string representation of this topic.
 	 */
 	public String toString() {
 		return getName();
 	}
-	
+
 	/**
 	 * Validate the topic name or topic filter
 	 * 
-	 * @param topicString topic name or filter
-	 * @param wildcardAllowed true if validate topic filter, false otherwise
-	 * @throws IllegalArgumentException if the topic is invalid
+	 * @param topicString
+	 *            topic name or filter
+	 * @param wildcardAllowed
+	 *            true if validate topic filter, false otherwise
+	 * @throws IllegalArgumentException
+	 *             if the topic is invalid
 	 */
 	public static void validate(String topicString, boolean wildcardAllowed) {
 		int topicLen = 0;
@@ -154,8 +171,8 @@ public class MqttTopic {
 		// - Topic Names and Topic Filters are UTF-8 encoded strings, they MUST
 		// NOT encode to more than 65535 bytes
 		if (topicLen < MIN_TOPIC_LEN || topicLen > MAX_TOPIC_LEN) {
-			throw new IllegalArgumentException(String.format("Invalid topic length, should be in range[%d, %d]!",
-					new Object[] { new Integer(MIN_TOPIC_LEN), new Integer(MAX_TOPIC_LEN) }));
+			throw new IllegalArgumentException(
+					"Invalid topic length, should be in range[" + MIN_TOPIC_LEN + ", " + MAX_TOPIC_LEN + "]!");
 		}
 
 		// *******************************************************************************
@@ -163,7 +180,8 @@ public class MqttTopic {
 		// *******************************************************************************
 		if (wildcardAllowed) {
 			// Only # or +
-			if (Strings.equalsAny(topicString, new String[] { MULTI_LEVEL_WILDCARD, SINGLE_LEVEL_WILDCARD })) {
+			if (Strings.equalsAny(topicString, new String[] {
+					MULTI_LEVEL_WILDCARD, SINGLE_LEVEL_WILDCARD })) {
 				return;
 			}
 
@@ -196,34 +214,36 @@ public class MqttTopic {
 		}
 
 		// *******************************************************************************
-		// 2) This is a topic name string that MUST NOT contains any wildcard characters
+		// 2) This is a topic name string that MUST NOT contains any wildcard
+		// characters
 		// *******************************************************************************
 		if (Strings.containsAny(topicString, TOPIC_WILDCARDS)) {
 			throw new IllegalArgumentException(
 					"The topic name MUST NOT contain any wildcard characters (#+)");
 		}
 	}
-	
-    private static void validateSingleLevelWildcard(String topicString) {
-        char singleLevelWildcardChar = SINGLE_LEVEL_WILDCARD.charAt(0);
-        char topicLevelSeparatorChar = TOPIC_LEVEL_SEPARATOR.charAt(0);
 
-        char[] chars = topicString.toCharArray();
-        int length = chars.length;
-        char prev = NUL, next = NUL;
-        for (int i = 0; i < length; i++) {
-            prev = (i - 1 >= 0) ? chars[i - 1] : NUL;
-            next = (i + 1 < length) ? chars[i + 1] : NUL;
+	private static void validateSingleLevelWildcard(String topicString) {
+		char singleLevelWildcardChar = SINGLE_LEVEL_WILDCARD.charAt(0);
+		char topicLevelSeparatorChar = TOPIC_LEVEL_SEPARATOR.charAt(0);
 
-            if (chars[i] == singleLevelWildcardChar) {
-                // prev and next can be only '/' or none
-                if (prev != topicLevelSeparatorChar && prev != NUL || next != topicLevelSeparatorChar && next != NUL) {
-                    throw new IllegalArgumentException(String.format(
-                            "Invalid usage of single-level wildcard in topic string '%s'!",
-                            new Object[] { topicString }));
-                }
-            }
-        }
-    }
-	
+		char[] chars = topicString.toCharArray();
+		int length = chars.length;
+		char prev = NUL, next = NUL;
+		for (int i = 0; i < length; i++) {
+			prev = (i - 1 >= 0) ? chars[i - 1] : NUL;
+			next = (i + 1 < length) ? chars[i + 1] : NUL;
+
+			if (chars[i] == singleLevelWildcardChar) {
+				// prev and next can be only '/' or none
+				if (prev != topicLevelSeparatorChar && prev != NUL
+						|| next != topicLevelSeparatorChar && next != NUL) {
+					throw new IllegalArgumentException(
+							"Invalid usage of single-level wildcard in topic string "
+									+ topicString + " !");
+				}
+			}
+		}
+	}
+
 }

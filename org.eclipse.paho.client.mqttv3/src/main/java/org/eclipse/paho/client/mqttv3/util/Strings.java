@@ -12,6 +12,9 @@
  *
  * Contributors:
  *    Bin Zhang - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3.util;
 
@@ -21,6 +24,9 @@ package org.eclipse.paho.client.mqttv3.util;
 public final class Strings {
 	// Represents a failed index search.
 	private static final int INDEX_NOT_FOUND = -1;
+	
+	private static final char MIN_HIGH_SURROGATE = '\uD800';
+	private static final char MAX_HIGH_SURROGATE = '\uDBFF';
 
 	/**
 	 * Checks if the CharSequence equals any character in the given set of characters.
@@ -78,7 +84,7 @@ public final class Strings {
 			char ch = cs.charAt(i);
 			for (int j = 0; j < searchLength; j++) {
 				if (searchChars[j] == ch) {
-					if (Character.isHighSurrogate(ch)) {
+					if (Character_isHighSurrogate(ch)) {
 						if (j == searchLast) {
 							// missing low surrogate, fine, like String.indexOf(String)
 							return true;
@@ -95,6 +101,14 @@ public final class Strings {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * @param ch
+	 * @return returns 'true' if the character is a high-surrogate code unit
+	 */
+	public static boolean Character_isHighSurrogate(char ch) {
+		return (ch >= MIN_HIGH_SURROGATE) && (ch <= MAX_HIGH_SURROGATE);
 	}
 
 	/**
