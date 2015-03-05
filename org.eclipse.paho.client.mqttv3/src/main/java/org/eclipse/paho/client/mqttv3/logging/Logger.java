@@ -12,10 +12,12 @@
  *
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3.logging;
 
-import java.util.ResourceBundle;
 
 /**
  * A Logger object is used to send log and trace messages to a platform
@@ -114,7 +116,6 @@ public interface Logger {
 	 */
 	public static final int	FINEST	= 7;
 	
-	public void initialise(ResourceBundle messageCatalog, String loggerID, String resourceName);
 	
 	/**
 	 * Set a name that can be used to provide context with each log record.

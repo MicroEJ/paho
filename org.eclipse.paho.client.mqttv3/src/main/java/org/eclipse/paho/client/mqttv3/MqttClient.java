@@ -13,6 +13,9 @@
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
  *    Ian Craggs - MQTT 3.1.1 support
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3;
 
@@ -20,7 +23,6 @@ import java.util.Properties;
 
 import javax.net.SocketFactory;
 
-import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
 import org.eclipse.paho.client.mqttv3.util.Debug;
 
 /**
@@ -133,7 +135,7 @@ public class MqttClient implements IMqttClient { //), DestinationProvider {
 	 * @throws MqttException if any other problem was encountered
 	 */
 	public MqttClient(String serverURI, String clientId) throws MqttException {
-		this(serverURI,clientId, new MqttDefaultFilePersistence());
+		this(serverURI,clientId, null);
 	}
 
 	/**

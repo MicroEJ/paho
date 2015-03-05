@@ -12,6 +12,9 @@
  *
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3.logging;
 import java.text.MessageFormat;
@@ -32,7 +35,7 @@ import java.util.logging.MemoryHandler;
  * {@link org.eclipse.paho.client.mqttv3.util.Debug Debug} provides method to make it easy
  * to dump the memory buffer as well as other useful debug info. 
  */
-public class JSR47Logger implements Logger {
+public class JSR47Logger implements ResourceBundleLogger {
 	private java.util.logging.Logger	julLogger			= null;
 	private ResourceBundle				logMessageCatalog	= null;
 	private ResourceBundle				traceMessageCatalog	= null;

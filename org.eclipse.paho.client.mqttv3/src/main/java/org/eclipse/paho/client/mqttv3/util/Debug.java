@@ -12,6 +12,9 @@
  *
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3.util;
 
@@ -19,6 +22,7 @@ import java.util.Enumeration;
 import java.util.Properties;
 
 import org.eclipse.paho.client.mqttv3.internal.ClientComms;
+import org.eclipse.paho.client.mqttv3.internal.dependencyinjection.DependencyInjectionHelper;
 import org.eclipse.paho.client.mqttv3.logging.Logger;
 import org.eclipse.paho.client.mqttv3.logging.LoggerFactory;
 
@@ -100,9 +104,8 @@ public class Debug {
 	 * Dump the current set of system.properties to a log record
 	 */
 	public void dumpSystemProperties() {
-		
-	    Properties sysProps = System.getProperties();
-    	log.fine(CLASS_NAME,"dumpSystemProperties", dumpProperties(sysProps, "SystemProperties").toString());
+		SystemProperties systemProperties = (SystemProperties) DependencyInjectionHelper.getImplementation(SystemProperties.class);
+    	log.fine(CLASS_NAME,"dumpSystemProperties", dumpProperties(systemProperties.get(), "SystemProperties").toString());
 	}
 
 	/**

@@ -13,17 +13,19 @@
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
  *    Ian Craggs - MQTT 3.1.1 support
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Properties;
 
 import javax.net.SocketFactory;
 
 import org.eclipse.paho.client.mqttv3.util.Debug;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Holds the set of options that control how the client connects to a server.
@@ -48,9 +50,9 @@ public class MqttConnectOptions {
 	public static final int MQTT_VERSION_3_1 = 3;
 	public static final int MQTT_VERSION_3_1_1 = 4;
 
-	protected static final int URI_TYPE_TCP = 0;
-	protected static final int URI_TYPE_SSL = 1;
-	protected static final int URI_TYPE_LOCAL = 2;
+	public static final int URI_TYPE_TCP = 0;
+	public static final int URI_TYPE_SSL = 1;
+	public static final int URI_TYPE_LOCAL = 2;
 
 	private int keepAliveInterval = KEEP_ALIVE_INTERVAL_DEFAULT;
 	private String willDestination = null;
@@ -451,7 +453,7 @@ public class MqttConnectOptions {
 	 * @return the URI type
 	 */
 
-	protected static int validateURI(String srvURI) {
+	public static int validateURI(String srvURI) {
 		try {
 			URI vURI = new URI(srvURI);
 			if (!vURI.getPath().equals("")) {

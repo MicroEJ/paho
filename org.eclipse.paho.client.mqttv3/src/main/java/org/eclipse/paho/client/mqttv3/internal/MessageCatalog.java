@@ -12,8 +12,13 @@
  *
  * Contributors:
  *    Dave Locke - initial API and implementation and/or initial documentation
+ *    
+ *    
+ * This file has been modified by IS2T.
  */
 package org.eclipse.paho.client.mqttv3.internal;
+
+import org.eclipse.paho.client.mqttv3.internal.dependencyinjection.DependencyInjectionHelper;
 
 /**
  * Catalog of human readable error messages.
@@ -23,21 +28,7 @@ public abstract class MessageCatalog {
 
 	public static final String getMessage(int id) {
 		if (INSTANCE == null) {
-			if (ExceptionHelper.isClassAvailable("java.util.ResourceBundle")) {
-				try {
-					// Hide this class reference behind reflection so that the class does not need to
-					// be present when compiled on midp
-					INSTANCE = (MessageCatalog)Class.forName("org.eclipse.paho.client.mqttv3.internal.ResourceBundleCatalog").newInstance();
-				} catch (Exception e) {
-					return "";
-				}
-			} else if (ExceptionHelper.isClassAvailable("org.eclipse.paho.client.mqttv3.internal.MIDPCatalog")){
-				try {
-					INSTANCE = (MessageCatalog)Class.forName("org.eclipse.paho.client.mqttv3.internal.MIDPCatalog").newInstance();
-				} catch (Exception e) {
-					return "";
-				}
-			}
+			INSTANCE = (MessageCatalog) DependencyInjectionHelper.getImplementation(MessageCatalog.class);
 		}
 		return INSTANCE.getLocalizedMessage(id);
 	}
