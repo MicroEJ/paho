@@ -5,24 +5,7 @@
 	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 -->
 <project name="org.eclipse.paho" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:ea="antlib:org.apache.easyant">
-	<fail unless="paho.git.repo" />
 	<ea:plugin module="abstract-compile" revision="0.9" />
-	
-	<macrodef name="git-clone">
-		<attribute name="dir" />
-		<attribute name="repository"  />
-		<sequential>
-			<exec executable="git clone" dir="${target}">
-				<arg value="@{repository}" />
-				<arg value="@{dir}" />
-			</exec>
-		</sequential>
-	</macrodef>
-	
-	<target name="init"  >
-		<fail message="clone" />
-		<git-clone repository="" dir="abstract-compile:compile-ready" />		
-	</target>
 	
 	<target name="paho-pathAppend" extensionOf="abstract-compile:compile-ready">
 		<!-- 
@@ -34,11 +17,10 @@
 			value="${client.release.version}"/>
 		-->
 		
-    	<!-- Add the default java source dir if it exists 
+    	<!-- Add the default java source dir if it exists -->
     	<ea:path pathid="src.java.path" overwrite="append">
-    		<path location="${paho.git.repo}/org.eclipse.paho.client.mqttv3/src/main/java-templates"/>
-			<path location="${workspace}/com.is2t.javax.net/src/java"/>
+    		<path location="../org.eclipse.paho.client.mqttv3/src/main/java-templates"/>
+			<path location="../com.is2t.javax.net/src/java"/>
 		</ea:path>
-    	-->
     </target>
 </project>
