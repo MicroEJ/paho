@@ -14,6 +14,7 @@
 
 package org.eclipse.paho.client.mqttv3.test.connectionLoss;
 
+import java.net.URI;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -23,12 +24,15 @@ import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttAsyncClient;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttClient;
+import org.eclipse.paho.client.mqttv3.MqttClientPersistence;
 import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
-import org.eclipse.paho.client.mqttv3.persist.MqttDefaultFilePersistence;
+import org.eclipse.paho.client.mqttv3.internal.dependencyinjection.DependencyInjectionHelper;
 import org.eclipse.paho.client.mqttv3.test.ManualTest;
+import org.eclipse.paho.client.mqttv3.test.properties.TestProperties;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -48,14 +52,21 @@ public class ConnectionLossManualTest implements MqttCallback
 	static final Class<?> cclass = ConnectionLossManualTest.class;
 	private static final String className = cclass.getName();
 	private static final Logger log = Logger.getLogger(className);
+	private static URI serverURI;
 
-	private static final MqttDefaultFilePersistence DATA_STORE = new MqttDefaultFilePersistence("/tmp");
+	private static final MqttClientPersistence DATA_STORE = (MqttClientPersistence) DependencyInjectionHelper.getImplementation(MqttClientPersistence.class);
 
 	private String  username = "username";
 	private char[]  password = "password".toCharArray();
 	private String  clientId = "device-client-id";
 	private String  message  = "12345678901234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890";
 
+	
+	 @BeforeClass
+	  public static void setUpBeforeClass() throws Exception {
+	      serverURI = TestProperties.getServerURI();
+	  }
+	
 	/**
 	 * Tests whether paho can detect a connection loss with the server even if it has outbound activity by publishing messages with QoS 0.
 	 * @throws Exception
@@ -72,7 +83,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttClient client = new MqttClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
     	client.connect(options);
     	
@@ -126,7 +137,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttClient client = new MqttClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
     	client.connect(options);
 	
@@ -181,7 +192,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttClient client = new MqttClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
     	client.connect(options);
     	
@@ -235,7 +246,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttAsyncClient client = new MqttAsyncClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttAsyncClient client = new MqttAsyncClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
 
     	log.info((new Date())+" - Connecting...");
@@ -298,7 +309,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttClient client = new MqttClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
     	client.connect(options);
     	
@@ -342,7 +353,7 @@ public class ConnectionLossManualTest implements MqttCallback
     	options.setPassword(password);
     	options.setKeepAliveInterval(keepAlive);
     	
-    	MqttClient client = new MqttClient("tcp://iot.eclipse.org:1883", clientId, DATA_STORE);
+    	MqttClient client = new MqttClient(serverURI.toString(), clientId, DATA_STORE);
     	client.setCallback(this);
     	client.connect(options);
     	
