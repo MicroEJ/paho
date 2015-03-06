@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="con" path="org.apache.ivyde.eclipse.cpcontainer.IVYDE_CONTAINER/?project=org.eclipse.paho.client.mqttv3.microej&amp;ivyXmlPath=module.ivy&amp;confs=*"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/com.is2t.javax.net"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.eclipse.paho.client.mqttv3"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
