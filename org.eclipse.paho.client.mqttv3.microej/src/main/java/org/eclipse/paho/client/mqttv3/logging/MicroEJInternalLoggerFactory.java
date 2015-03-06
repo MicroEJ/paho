@@ -196,7 +196,7 @@ public class MicroEJInternalLoggerFactory implements InternalLoggerFactory {
 
 	@Override
 	public String getLoggingProperty(String name) {
-		return "";
+		return null;
 	}
 
 }

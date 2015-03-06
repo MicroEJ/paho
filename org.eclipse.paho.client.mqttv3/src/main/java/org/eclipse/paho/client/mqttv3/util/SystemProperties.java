@@ -9,8 +9,12 @@ package org.eclipse.paho.client.mqttv3.util;
 
 import java.util.Properties;
 
-
 public interface SystemProperties {
-	
+
+	/**
+	 * Gets the system properties.
+	 * 
+	 * @return the system properties.
+	 */
 	Properties get();
 }

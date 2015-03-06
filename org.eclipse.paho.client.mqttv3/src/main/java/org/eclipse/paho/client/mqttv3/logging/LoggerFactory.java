@@ -52,8 +52,7 @@ public class LoggerFactory {
 	/**
 	 * Find or create a logger for a named package/class. 
 	 * If a logger has already been created with the given name 
-	 * it is returned. Otherwise a new logger is created. By default a logger
-	 * that uses java.util.logging will be returned.
+	 * it is returned. Otherwise a new logger is created.
 	 * 
 	 * @param messageCatalogName the resource bundle containing the logging messages.
 	 * @param loggerID  unique name to identify this logger.
