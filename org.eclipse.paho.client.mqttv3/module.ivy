@@ -1,11 +1,5 @@
-<!--
-	Ivy
-	
-	Copyright 2015 IS2T. All rights reserved.
-	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
--->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org"> 
-	<info organisation="org.eclipse.paho" module="mqttv3" status="integration" revision="1.0.0">
+	<info organisation="org.eclipse.paho" module="mqttv3" status="integration" revision="1.0.3">
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-microej-javalib" revision="1.+">
 		</ea:build>
 	</info>
@@ -24,8 +18,8 @@
 			Put MicroEJ API dependencies to the "provided" configuration
 			Other regular runtime dependencies are in the "default" configuration  
 		-->
-		<dependency conf="provided->*" changing="true" transitive="false" org="com.is2t.edc" name="edc-1.2-api" rev="1.+"/>
-		<dependency conf="provided->*" changing="true" transitive="false" org="com.is2t.libraries.net-embedded" name="net-embedded-api" rev="1.+"/>
+		<dependency changing="true" transitive="false" org="com.is2t.edc" name="edc-1.2-api" rev="1.+" conf="provided->*"/>
+		<dependency changing="true" transitive="false" org="com.is2t.libraries.net-embedded" name="net-embedded-api" rev="1.+" conf="provided->*"/>
 		<dependency changing="true" transitive="false" org="ej.eclasspath" name="properties" rev="[1.0.0-RC0,2.0.0-RC0["/>
 		<dependency changing="true" transitive="false" org="ej.eclasspath" name="bufferedstreams" rev="[1.0.0-RC0,2.0.0-RC0["/>
 		<dependency changing="true" transitive="false" org="ej.eclasspath" name="uri" rev="[1.0.0-RC0,2.0.0-RC0["/>

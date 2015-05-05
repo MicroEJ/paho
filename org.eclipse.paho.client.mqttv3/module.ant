@@ -1,9 +1,3 @@
-<!--
-	ANT
-	
-	Copyright 2015 IS2T. All rights reserved.
-	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
--->
 <project name="org.eclipse.paho" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:ea="antlib:org.apache.easyant">
 	<ea:plugin module="abstract-compile" revision="0.9" />
 	
