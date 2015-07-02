@@ -11,9 +11,9 @@
  *   http://www.eclipse.org/org/documents/edl-v10.php.
  */
 
-
 package org.eclipse.paho.client.mqttv3.util;
 
+import java.util.Properties;
 
 public class MicroEJSystemProperties implements SystemProperties {
 
