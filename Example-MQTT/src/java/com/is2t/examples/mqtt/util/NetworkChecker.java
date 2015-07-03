@@ -2,7 +2,8 @@
  * Java
  *
  * Copyright 2015 IS2T. All rights reserved.
- * IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+ * For demonstration purpose only.
+ * IS2T PROPRIETARY. Use is subject to license terms.
  */
 package com.is2t.examples.mqtt.util;
 
