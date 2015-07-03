@@ -1,30 +1,54 @@
-Paho Java client for MQTT
-
-This is to be completed... (Ian Craggs)
-
-
-Updating to a new version number
--------------------------------
-
-Ok. There are some Maven commands to update releases, but so far I've not been able to determine what those should be.  
-
-In the develop branch, we want the releases to be the vNext-SNAPSHOT 
-
-But in the master branch, we want 
+# Overview
+Paho MicroEJ client for MQTT:
+- This is a fork of Paho: https://eclipse.org/paho/clients/java/
+- Implements MQTT 3.1.1
 
 
-Maven command to update versions:
+Some useful tutorials:
+- http://www.infoq.com/articles/practical-mqtt-with-paho
+- https://developer.motorolasolutions.com/docs/DOC-2315 android oriented
 
-mvn versions:set -DnewVersion=1.0.2-SNAPSHOT
+	
+## Setup
+In addition of adding the library in your buildpath, you have to configure your launch.
 
-this will work for pom.xml files.  However we have OSGi manifests as well.  Linux commands to update versions:
+### Dependency injection:
+The library requires some implementations. It comes with default implementations but you can precise yours. 
+To precise your own implementation you have to create a system property with the required interface as the key and the corresponding implementation as the value.
+To define a system property see the section 6.1 of the MicroEJ Platform Architecture Reference Manual.
+	
+The library requires an implementation for the following interfaces:
+- org.eclipse.paho.client.mqttv3.MqttClientPersistence
+- org.eclipse.paho.client.mqttv3.internal.NetworkModuleFactory
+- org.eclipse.paho.client.mqttv3.internal.MessageCatalog
+- org.eclipse.paho.client.mqttv3.logging.InternalLoggerFactory
+- org.eclipse.paho.client.mqttv3.util.SystemProperties
 
-find | grep "MANIFEST\.MF" | xargs sed -i "s/1\.0\.2/1\.0\.3\.qualifier/g"
-find | grep "feature.xml" | xargs sed -i "s/1\.0\.2/1\.0\.3\.qualifier/g"
-find | grep "build.xml" | xargs sed -i "s/1\.0\.2/1\.0\.3\.qualifier/g"
-find | grep "category.xml" | xargs sed -i "s/1\.0\.2/1\.0\.3\.qualifier/g"
-find | grep "ui.app.product" | xargs sed -i "s/1\.0\.2/1\.0\.3\.qualifier/g"
+For information about this interfaces see the corresponding javadoc.
 
-Example Linux command to find all files with instances of a version number:
+example: org.eclipse.paho.client.mqttv3.MqttClientPersistence=org.eclipse.paho.client.mqttv3.persist.MemoryPersistence
 
-find | xargs grep -s "1\.0\.2"
+The default implementations are defined in the `dependencyinjection.properties` file in the package `org.eclipse.paho.client.mqttv3.internal.dependencyinjection` of `mqttv3-microej-version.jar`.
+	
+In your launch, in the `Main` tab:
+- add the chosen implementations in the `Required types` part.
+- add the file containing the default implementations in the `Resources` part.
+
+### Threads
+Paho requires 4 threads to run. You have to adapt the value `Number of threads` of your launch to take this in account. You can modify this value by going in the `Configuration` tab in the `Target > Memory` section.
+
+### UTF-8
+Paho requires UTF-8 encoding to run. In the `Configuration` tab in the `EDC` section check `Embed UTF-8 encoding`.
+
+## Example
+The provided example shows the 2 main features of Paho:
+- the publication of messages in a topic with the `MqttHelloWorldPublisher` entry point.
+- the subscription to a topic with the `MqttHelloWorldSubscriber` entry point.
+
+### Configuration
+- Set your MQTT broker url by changing the value of `com.is2t.examples.mqtt.MqttHelloWorldConstants.Broker`.
+- Set your network configuration by going in your launch in the `Configuration` tab in the `Net Embedded > Network Settings` section.
+
+### Launches
+A Simulation and an Embedded launch are available for each entry point.
+There are a Sim and Emb launch for each entry point.
