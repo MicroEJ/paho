@@ -14,7 +14,7 @@
 
 package org.eclipse.paho.client.mqttv3.internal;
 
-public class NLSCatalog extends MessageCatalog {
+public class EmptyCatalog extends MessageCatalog {
 
 	@Override
 	protected String getLocalizedMessage(int id) {
