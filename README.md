@@ -45,6 +45,11 @@ The provided example shows the 2 main features of Paho:
 - the publication of messages in a topic with the `MqttHelloWorldPublisher` entry point.
 - the subscription to a topic with the `MqttHelloWorldSubscriber` entry point.
 
+### Requirements
+- JRE 7 (or later) x86.
+- MicroEJ 3.1 or later.
+- Java platform with (at least) EDC-1.2, NET-EMBEDDED-1.0.
+
 ### Configuration
 - Set your MQTT broker url by changing the value of `com.is2t.examples.mqtt.MqttHelloWorldConstants.Broker`.
 - Set your network configuration by going in your launch in the `Configuration` tab in the `Net Embedded > Network Settings` section.
