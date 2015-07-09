@@ -41,7 +41,7 @@ Paho requires 4 threads to run. You have to adapt the value `Number of threads` 
 Paho requires UTF-8 encoding to run. In the `Configuration` tab in the `EDC` section check `Embed UTF-8 encoding`.
 
 ## Example
-The provided example shows the 2 main features of Paho:
+The project `Example-MQTT` shows the 2 main features of Paho:
 - the publication of messages in a topic with the `MqttHelloWorldPublisher` entry point.
 - the subscription to a topic with the `MqttHelloWorldSubscriber` entry point.
 
@@ -56,4 +56,3 @@ The provided example shows the 2 main features of Paho:
 
 ### Launches
 A Simulation and an Embedded launch are available for each entry point.
-There are a Sim and Emb launch for each entry point.
