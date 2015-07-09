@@ -15,11 +15,11 @@ public interface MqttHelloWorldLoggerConstants {
 	/**
 	 * 
 	 */
-	public static final String INFO_PROMPT = "[INFO]";
-	
+	String INFO_PROMPT = "[INFO]";
+
 	/**
 	 * 
 	 */
-	public static final String ERROR_PROMPT = "[ERROR]";
-	
+	String ERROR_PROMPT = "[ERROR]";
+
 }

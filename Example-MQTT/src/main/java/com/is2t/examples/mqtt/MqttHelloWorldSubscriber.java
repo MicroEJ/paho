@@ -7,9 +7,9 @@
  */
 package com.is2t.examples.mqtt;
 
-import static com.is2t.examples.mqtt.MqttHelloWorldConstants.Broker;
-import static com.is2t.examples.mqtt.MqttHelloWorldConstants.SubscriberId;
-import static com.is2t.examples.mqtt.MqttHelloWorldConstants.Topic;
+import static com.is2t.examples.mqtt.MqttHelloWorldConstants.BROKER;
+import static com.is2t.examples.mqtt.MqttHelloWorldConstants.SUBSCRIBER_ID;
+import static com.is2t.examples.mqtt.MqttHelloWorldConstants.TOPIC;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -24,47 +24,59 @@ import com.is2t.examples.mqtt.util.NetworkChecker;
 /**
  * This example connects to a MQTT broker, creates a callback and subscribes to the topic "MqttHelloWorld".
  */
-public class MqttHelloWorldSubscriber {
+public final class MqttHelloWorldSubscriber {
 
 	/**
 	 * Application logger.
 	 */
-	public static MqttHelloWorldLogger Logger = new MqttHelloWorldSysoutLogger();
+	private static final MqttHelloWorldLogger LOGGER = new MqttHelloWorldSysoutLogger();
+
+	// Prevents initialization.
+	private MqttHelloWorldSubscriber() {
+	}
 
 	public static void main(String[] args) {
-		Logger.logInfo("Wait for network up...");
+		LOGGER.logInfo("Wait for network up...");
 
 		if (NetworkChecker.waitForUp()) {
 			MqttClient client = null;
 			try {
-				client = new MqttClient(Broker, SubscriberId);
+				client = new MqttClient(BROKER, SUBSCRIBER_ID);
 				client.setCallback(new MqttCallback() {
 
 					@Override
 					public void messageArrived(String topic, MqttMessage message) throws Exception {
-						Logger.logInfo(new String(message.getPayload()) + " received from topic " + topic);
+						LOGGER.logInfo(new String(message.getPayload()) + " received from topic " + topic);
 					}
 
 					@Override
 					public void deliveryComplete(IMqttDeliveryToken token) {
-						Logger.logInfo("delivery complete: " + token);
+						LOGGER.logInfo("delivery complete: " + token);
 					}
 
 					@Override
 					public void connectionLost(Throwable cause) {
-						Logger.logInfo("connection lost: " + cause);
+						LOGGER.logInfo("connection lost: " + cause);
 					}
 				});
-				Logger.logInfo("Try to connect to " + MqttHelloWorldConstants.Broker);
+				LOGGER.logInfo("Try to connect to " + MqttHelloWorldConstants.BROKER);
 				client.connect();
-				Logger.logInfo("Client connected");
-				client.subscribe(Topic);
-				Logger.logInfo("Client subscribed to " + Topic);
+				LOGGER.logInfo("Client connected");
+				client.subscribe(TOPIC);
+				LOGGER.logInfo("Client subscribed to " + TOPIC);
 			} catch (MqttException e) {
-				e.printStackTrace();
+				LOGGER.logInfo("Unable to connect to " + BROKER + " and subscribe to topic " + TOPIC);
+				if (client != null) {
+					try {
+						client.disconnect();
+						LOGGER.logInfo("Client disconnected");
+					} catch (MqttException e2) {
+						// Ignored.
+					}
+				}
 			}
 		} else {
-			Logger.logInfo("Network unavailable");
+			LOGGER.logInfo("Network unavailable");
 		}
 	}
 }
