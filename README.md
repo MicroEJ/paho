@@ -39,20 +39,3 @@ Paho requires 4 threads to run. You have to adapt the value `Number of threads` 
 
 ### UTF-8
 Paho requires UTF-8 encoding to run. In the `Configuration` tab in the `EDC` section check `Embed UTF-8 encoding`.
-
-## Example
-The project `Example-MQTT` shows the 2 main features of Paho:
-- the publication of messages in a topic with the `MqttHelloWorldPublisher` entry point.
-- the subscription to a topic with the `MqttHelloWorldSubscriber` entry point.
-
-### Requirements
-- JRE 7 (or later) x86.
-- MicroEJ 3.1 or later.
-- Java platform with (at least) EDC-1.2, NET-EMBEDDED-1.0.
-
-### Configuration
-- Set your MQTT broker url by changing the value of `com.is2t.examples.mqtt.MqttHelloWorldConstants.Broker`.
-- Set your network configuration by going in your launch in the `Configuration` tab in the `Net Embedded > Network Settings` section.
-
-### Launches
-A Simulation and an Embedded launch are available for each entry point.
