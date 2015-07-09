@@ -1,6 +1,6 @@
 # Overview
 Paho MicroEJ client for MQTT:
-- This is a fork of Paho: https://eclipse.org/paho/clients/java/
+- This is a fork of Paho: https://eclipse.org/paho/clients/java/ from commit 496f94a58a41557ba2401d4ba94bc099a75ba8ef (just after version 1.0.2).
 - Implements MQTT 3.1.1
 
 
