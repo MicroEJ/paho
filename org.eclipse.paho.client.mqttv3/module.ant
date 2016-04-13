@@ -14,7 +14,6 @@
     	<!-- Add the default java source dir if it exists -->
     	<ea:path pathid="src.java.path" overwrite="append">
     		<path location="../org.eclipse.paho.client.mqttv3/src/main/java-templates"/>
-			<path location="../com.is2t.javax.net/src/java"/>
 		</ea:path>
     </target>
 </project>
