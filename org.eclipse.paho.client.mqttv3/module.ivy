@@ -5,7 +5,7 @@
 	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org"> 
-	<info organisation="org.eclipse.paho" module="mqttv3" status="integration" revision="1.0.4">
+	<info organisation="org.eclipse.paho" module="mqttv3" status="integration" revision="1.0.5">
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-microej-javalib" revision="+">
 		</ea:build>
 	</info>
@@ -23,7 +23,7 @@
 		<!-- keep this empty if no specific artifact to publish -->
 	</publications>
 	
-	<dependencies defaultconf="default">
+	<dependencies>
 		<!-- 
 			Put MicroEJ API dependencies to the "provided" configuration
 			Other regular runtime dependencies are in the "default" configuration  
