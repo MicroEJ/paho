@@ -57,3 +57,10 @@ Icon
 # Maven
 log/
 target/
+
+# Ivy
+target~/
+
+# Sonar
+.sonar/
+

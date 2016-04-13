@@ -5,7 +5,7 @@
 	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 -->
 <ivy-module version="2.0" xmlns:ea="http://www.easyant.org"> 
-	<info organisation="org.eclipse.paho" module="mqttv3-microej" status="integration" revision="1.0.1">
+	<info organisation="org.eclipse.paho" module="mqttv3-microej" status="integration" revision="1.1.0">
 		<ea:build organisation="com.is2t.easyant.buildtypes" module="build-microej-javalib" revision="+">
 		</ea:build>
 	</info>
@@ -29,6 +29,11 @@
 			Other regular runtime dependencies are in the "default" configuration  
 		-->
 		<dependency  org="ej.api" name="edc" rev="[1.2.0-RC0,2.0.0-RC0[" conf="provided->*"/>
-		<dependency org="org.eclipse.paho" name="mqttv3" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency  org="ej.api" name="net" rev="[1.0.0-RC0,2.0.0-RC0[" conf="provided->*"/>
+		<dependency  org="ej.library.eclasspath" name="properties" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency  org="ej.library.eclasspath" name="bufferedstreams" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency  org="ej.library.eclasspath" name="uri" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency  org="ej.library.eclasspath" name="printwriter" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<dependency  org="ej.library.eclasspath" name="socketfactory" rev="[1.0.0-RC0,2.0.0-RC0["/>
 	</dependencies>
 </ivy-module>

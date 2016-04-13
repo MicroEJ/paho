@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Ant
+ 
+  Copyright 2016 IS2T. All rights reserved.
+  IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+
+<project name="paho" xmlns:ivy="antlib:org.apache.ivy.ant" xmlns:ea="antlib:org.apache.easyant">
+	<ea:plugin module="abstract-compile" revision="0.9" />
+
+	<dirname file="${ant.file.paho}" property="ant.dir.paho" />
+	<property name="workspace.paho" location="${ant.dir.paho}/.." />
+
+	<target name="paho:pathAppend" extensionOf="abstract-compile:compile-ready">
+		<!-- Add the default java source dir if it exists -->
+		<ea:path pathid="src.java.path" overwrite="append">
+			<path location="${workspace.paho}/org.eclipse.paho.client.mqttv3/src/main/java-templates" />
+			<path location="${workspace.paho}/org.eclipse.paho.client.mqttv3/src/main/java" />
+		</ea:path>
+	</target>
+</project>
