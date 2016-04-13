@@ -4,6 +4,6 @@
 	IS2T PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
 -->
 
-## 1.0.4 (2016-04-01)
+## 1.0.5 (2016-04-01)
 Features:
   - Initial public revision.
