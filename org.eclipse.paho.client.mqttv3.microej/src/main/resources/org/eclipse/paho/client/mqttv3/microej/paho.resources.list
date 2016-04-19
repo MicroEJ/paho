@@ -9,4 +9,4 @@
 # and the Eclipse Distribution License is available at 
 #   http://www.eclipse.org/org/documents/edl-v10.php.
 
-/org/eclipse/paho/client/mqttv3/internal/dependencyinjection/dependencyinjection.properties
+org/eclipse/paho/client/mqttv3/internal/dependencyinjection/dependencyinjection.properties
