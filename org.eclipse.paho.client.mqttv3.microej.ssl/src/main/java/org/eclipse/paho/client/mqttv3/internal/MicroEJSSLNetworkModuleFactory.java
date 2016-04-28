@@ -36,6 +36,7 @@ import org.eclipse.paho.client.mqttv3.internal.security.MicroEJSSLSocketFactoryF
 public class MicroEJSSLNetworkModuleFactory extends AbstractNetworkModuleFactory
 implements NetworkModuleFactory {
 
+	public static final String DEFAULTLIST = "/certificates/paho.certificates.list";
 	public static final String CERTIFICATESLIST = "org.eclipse.paho.certificates";
 
 	@Override
@@ -72,9 +73,9 @@ implements NetworkModuleFactory {
 			if (factory == null) {
 				// try {
 				factoryFactory = new MicroEJSSLSocketFactoryFactory();
-				String certificatesList = System.getProperty(CERTIFICATESLIST);
+				String certificatesList = System.getProperty(CERTIFICATESLIST, DEFAULTLIST);
 				if (certificatesList != null) {
-					InputStream listStream = MicroEJSSLNetworkModule.class.getResourceAsStream(certificatesList);
+					InputStream listStream = MicroEJSSLNetworkModuleFactory.class.getResourceAsStream(certificatesList);
 					BufferedReader reader = new BufferedReader(new InputStreamReader(listStream));
 					String certificate;
 					try {

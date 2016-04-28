@@ -54,7 +54,8 @@ public class MicroEJSSLNetworkModule extends TCPNetworkModule {
 		int soTimeout = socket.getSoTimeout();
 		if ( soTimeout == 0 ) {
 			// RTC 765: Set a timeout to avoid the SSL handshake being blocked indefinitely
-			socket.setSoTimeout(this.handshakeTimeoutSecs*1000);
+			// remove timeout as the time is not set by default.
+			//			socket.setSoTimeout(this.handshakeTimeoutSecs * 1000);
 		}
 		((SSLSocket)socket).startHandshake();
 		// reset timeout to default value
