@@ -45,8 +45,7 @@ Icon
 *.ear
 
 # Eclipse
-.classpath
-.project
+
 .settings/
 
 # Intellij
