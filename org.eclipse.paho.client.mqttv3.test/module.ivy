@@ -17,7 +17,7 @@
 			Other regular runtime dependencies are in the "default" configuration  
 		-->
 
-		<dependency changing="true" transitive="false" org="org.eclipse.paho" name="mqttv3" rev="[1.0.0-RC0,2.0.0-RC0["/>
-		<dependency changing="true" transitive="false" org="org.eclipse.paho" name="mqttv3-microej" rev="[1.0.0-RC0,2.0.0-RC0["/>
+		<!--dependency changing="true" transitive="false" org="org.eclipse.paho" name="mqttv3-microej" rev="[1.0.0-RC0,2.0.0-RC0["/-->
+		<dependency org="org.eclipse.paho" name="mqttv3-ssl-microej" rev="[0.0.0-RC0,1.0.0-RC0["/>
 	</dependencies>
 </ivy-module>
