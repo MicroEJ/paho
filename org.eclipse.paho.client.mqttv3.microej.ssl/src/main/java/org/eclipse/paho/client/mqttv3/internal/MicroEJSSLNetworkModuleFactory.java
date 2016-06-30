@@ -83,9 +83,10 @@ implements NetworkModuleFactory {
 							factoryFactory.addCertificate(certificate);
 						}
 					} catch (IOException e) {
-						e.printStackTrace();
+						throw ExceptionHelper.createMqttException(MqttException.REASON_CODE_SSL_CONFIG_ERROR);
 					}
-
+				} else {
+					throw ExceptionHelper.createMqttException(MqttException.REASON_CODE_SSL_CONFIG_ERROR);
 				}
 				factory = factoryFactory.createSocketFactory();
 			} else if ((factory instanceof SSLSocketFactory) == false) {

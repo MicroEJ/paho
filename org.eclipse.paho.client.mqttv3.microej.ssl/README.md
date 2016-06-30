@@ -42,10 +42,15 @@ Paho requires UTF-8 encoding to run. In the `Configuration` tab in the `EDC` sec
 
 # Usage
 Add the following line to your `module.ivy` or your `ivy.xml`:
-> `<dependency org="org.eclipse.paho" name="mqttv3-microej" rev="1.+"/>`
+> `<dependency org="org.eclipse.paho" name="mqttv3-ssl-microej" rev="1.+"/>`
+
+## SSL
+The path to the certificate list is defined by the System property `org.eclipse.paho.certificates` by default it is `/certificates/paho.certificates.list`
+Your application must embed this file. this file is a list of path to the certificates you want to use (one certificate per line).
 
 # Requirements
   - EDC-1.2 or higher
+  - SSL-2.0 or higher
 
 # Dependencies
 _All dependencies are retrieved transitively by Ivy resolver_.
